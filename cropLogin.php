@@ -1,5 +1,32 @@
-<?php 
+<?php
 
+    include_once __DIR__ . "/model_crop.php";
+    include_once __DIR__ . "/functions.php";
+    include __DIR__ . "/model/db.php";
+    
+    
+    if(isset($_POST['login'])){
+        $userName = mysqli_real_escape_string($con,$_POST['userName']);
+        $password = mysqli_real_escape_string($con,$_POST['password']);
+    
+        if ($userName = !"" && $password = !""){
+    
+            $sql_query = "select count(0) as cntUser from users where userName='".$userName."' and password='".$password."'";
+            $result = mysqli_query($con,$sql_query);
+            $row = mysqli_fetch_array($result);
+    
+            $count = $row['cntUser'];
+    
+            if($count > 0){
+                $_SESSION['userName'] = $userName;
+                header('Location: searchsort.php');
+            }else{
+                echo "Invalid username and password";
+            }
+    
+        }
+    
+    }
 ?>
 
 <!DOCTYPE html>
@@ -10,38 +37,17 @@
     <style type="text/css">
 
     
-    #login {margin-left: 1100px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;}
-    .col1 {width: 100px; float: left;}
-    .col2 {float: left;}
-    .rowContainer {clear: none; height: 40px; width: 500px;}
-    .error {margin-left: 100px; clear: left; color: red;}
-        
-    h1, h2, h3{
-        margin-top: 50px;
-        padding-top: 10px;
-        font-size: 40px;
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-        color:#1E8449;
-        text-align: center;
-    }
-
-    body{
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-       text-align: center;
-    }
-
     </style>
-<title>CropVentory Login</title>
+<title>Login</title>
 </head>
 <body>
     
 <h3>Welcome Farmer! Please Log in.</h3>
-
     <div id="login">
-        <form method="post" action="cropLogin.php">
+        <form method="post" action="login.php">
            
             <div class="rowContainer">
-
+                
             </div>
             <div class="rowContainer">
                 <div class="col1">User Name:</div>
@@ -59,36 +65,6 @@
         </form>
         
     </div>
-
-    <h3>Register Here</h3>
-    <div id="register">
-        <form method="post" action="cropRegistered.php">
-            <div class="rowContainer">
-
-            </div>
-            <div class="rowContainer">
-                <div class="col1">userName</div>
-                <div class="col2"><input type="text" name="userName"></div> 
-            </div>
-            <div class="rowContainer">
-                <div class="col1">Password:</div>
-                <div class="col2"><input type="password" name="password"></div> 
-            </div>
-            <div class="rowContainer">
-                <div class="col1">Farm Name:</div>
-                <div class="col2"><input type="text" name="farmName"></div> 
-            </div>
-              <div class="rowContainer">
-                <div class="col1">&nbsp;</div>
-                <div class="col2"><input type="submit" name="register" value="Register" class="btn btn-warning"></div> 
-            </div>
-            
-
-
-        </form>
-    </div>
-
-
 
     <div class="col-sm-offset-2 col-sm-10"><a href="./cropHome.php">Home Page</a></div>
     
