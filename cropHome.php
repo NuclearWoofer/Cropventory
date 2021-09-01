@@ -32,6 +32,18 @@
     
 
 <!--------------------------------------------------ADDING CROPS---------------------------------------------------------------------------------------------------->
+<?php
+        
+        include __DIR__ . '/model_crop.php';
+        include __DIR__ . '/functions.php';
+       if (isPostRequest()) {
+        $cropName = filter_input(INPUT_POST, 'cropName');
+        $cropPlanted = filter_input(INPUT_POST, 'cropPlanted');
+        $cropQty = filter_input(INPUT_POST, 'cropQty');
+        
+           $result = addCrops ($cropName, $cropPlanted, $cropQty);   
+       }
+?>
 <h2>Add Crops</h2>
 <h3>Here we can add more crops / plants to your inventory.</h3>
       
@@ -102,10 +114,31 @@
         header('Location: login.php');
     }
 ?>
+
+ 
+<?php
+    include __DIR__ . '/includes/searchFrom.php';
+    include __DIR__ . '/includes/sortForm.php';
+    include __DIR__ . '/includes/view.php';
+?>
+    
 <!--------------------------------------------------END SEARCH AND SORT---------------------------------------------------------------------------------------------------->
 
 <!-------------------------------------------------------INVENTORY--------------------------------------------------------------------------------------------------------->
-  <div class="container">
+
+<?php
+    
+    include __DIR__ . '/model_crop.php';
+    include __DIR__ . '/functions.php';
+    if (isPostRequest()) {
+        $cropId = filter_input(INPUT_POST, 'cropId');
+        deleteCrop ($cropId);
+
+    }
+    $crops = getCrops ();
+    
+?>
+<div class="container">
         <div class="col-sm-offset-2 col-sm-10">
             <h1>Inventory</h1>
         <table class="table table-striped">
