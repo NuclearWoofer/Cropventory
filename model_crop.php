@@ -6,7 +6,7 @@
         global $db;
         $results = "Not added";
 
-        $stmt = $db->prepare("INSERT INTO cropsInventory SET cropName = :cropName, cropPlanted = :cropPlanted, cropQty = :cropQty");
+        $stmt = $db->prepare("INSERT INTO crops SET cropName = :cropName, cropPlanted = :cropPlanted, cropQty = :cropQty");
 
         $binds = array(
             ":cropName" => $n,
@@ -27,7 +27,7 @@
         
         $results = [];
 
-        $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest FROM cropsInventory ORDER BY cropId"); 
+        $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest, category, subCategory FROM crops ORDER BY cropId"); 
         
         if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
              $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@
        
        $results = [];
        
-       $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest FROM cropsInventory WHERE cropId=:cropId");
+       $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest, category, subCategory FROM crops WHERE cropId=:cropId");
        $stmt->bindValue(':cropId', $cropId);
       
        if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
@@ -57,12 +57,12 @@
            
 
     
-    function updateCrop ($cropId, $cropName, $cropQty, $cropPlanted) {
+    function updateCrop ($cropId, $cropName, $cropQty, $cropPlanted, $category, $subCategory) {
         global $db;
 
         $results = "";
         
-        $stmt = $db->prepare("UPDATE cropsInventory SET cropName = :cropName, cropQty = :cropQty, cropPlanted = :cropPlanted WHERE cropId =:cropId");
+        $stmt = $db->prepare("UPDATE crops SET cropName = :cropName, cropQty = :cropQty, cropPlanted = :cropPlanted, category = :category, subCategory = :subCategory WHERE cropId =:cropId");
         
         $stmt->bindValue(':cropId', $cropId);
         $stmt->bindValue(':cropName', $cropName);
@@ -98,7 +98,7 @@
     global $db;
       
      $results = [];
-      $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest FROM cropsInventory WHERE $column LIKE :search");
+      $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest, category, subCategory FROM crops WHERE $column LIKE :search");
       $search = '%'.$searchValue.'%';
       
       $stmt->bindValue(':search', $search);
@@ -119,7 +119,7 @@ function sortCrops ($column, $order) {
      $results = [];
      
     
-     $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest FROM cropsInventory ORDER BY $column $order");
+     $stmt = $db->prepare("SELECT cropId, cropName, cropPlanted, cropQty, cropEstHarvest, category, subCategory FROM crops ORDER BY $column $order");
      
      
      if ( $stmt->execute() && $stmt->rowCount() > 0 ) {
@@ -132,7 +132,7 @@ function sortCrops ($column, $order) {
 
 
 function getFieldNames () {
-    $fieldNames = ['cropName', 'cropPlanted' ,'cropQty', 'cropEstHarvest'];
+    $fieldNames = ['cropName', 'cropPlanted' ,'cropQty', 'cropEstHarvest', 'category' , 'subCategory'];
     
     return ($fieldNames);
     
