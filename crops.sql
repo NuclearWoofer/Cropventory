@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS cropsInventory (
         cropPlanted DATE, --date planted
         cropEstHarvest DATE, --estimated harvest date
         cropQty INT, --how many of said plant
-        cropEstSell FLOAT, --estimated sell = qty 
+        
         
         
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
