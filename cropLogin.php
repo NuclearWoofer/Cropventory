@@ -66,6 +66,34 @@
         
     </div>
 
+    <h3>Register Here</h3>
+    <div id="register">
+        <form method="post" action="cropRegistered.php">
+            <div class="rowContainer">
+
+            </div>
+            <div class="rowContainer">
+                <div class="col1">Email:</div>
+                <div class="col2"><input type="text" name="userName"></div> 
+            </div>
+            <div class="rowContainer">
+                <div class="col1">Password:</div>
+                <div class="col2"><input type="password" name="password"></div> 
+            </div>
+            <div class="rowContainer">
+                <div class="col1">Farm Name:</div>
+                <div class="col2"><input type="text" name="farmName"></div> 
+            </div>
+              <div class="rowContainer">
+                <div class="col1">&nbsp;</div>
+                <div class="col2"><input type="submit" name="register" value="Register" class="btn btn-warning"></div> 
+            </div>
+            
+
+
+        </form>
+    </div>
+
     <div class="col-sm-offset-2 col-sm-10"><a href="./cropHome.php">Home Page</a></div>
     
 
