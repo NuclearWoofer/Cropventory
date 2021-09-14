@@ -30,7 +30,7 @@
 <body>
 <!--------------------------------------------------ADDING CROPS---------------------------------------------------------------------------------------------------->
 <?php
-        
+       //adding 
         include __DIR__ . '/model_crop.php';
         include __DIR__ . '/functions.php';
        if (isPostRequest()) {
@@ -40,6 +40,15 @@
         
            $result = addCrops ($cropName, $cropPlanted, $cropQty);   
        }
+
+           //inventory, requires includes>>
+    if (isPostRequest()) {
+        $cropId = filter_input(INPUT_POST, 'cropId');
+        deleteCrop ($cropId);
+
+    }
+    $crops = getCrops ();
+    
 ?>
 <h2>Add Crops</h2>
 <h3>Here we can add more crops / plants to your inventory.</h3>
@@ -92,16 +101,7 @@
 <!-------------------------------------------------------INVENTORY--------------------------------------------------------------------------------------------------------->
 
 <?php
-    
-    include __DIR__ . '/model_crop.php';
-    include __DIR__ . '/functions.php';
-    if (isPostRequest()) {
-        $cropId = filter_input(INPUT_POST, 'cropId');
-        deleteCrop ($cropId);
 
-    }
-    $crops = getCrops ();
-    
 ?>
 <div class="container">
         <div class="col-sm-offset-2 col-sm-10">
